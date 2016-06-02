@@ -99,15 +99,23 @@ class LibrosTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "ShowDetailLibro" {
+            let libroDetailViewController = segue.destinationViewController as! DetalleLibroViewController
+            // Get the cell that generated this segue
+            if let selectedLibro = sender as? LibroTableViewCell {
+                let indexPath = tableView.indexPathForCell(selectedLibro)
+                let selectedLibro = libros[(indexPath?.row)!]
+                libroDetailViewController.libroDetalle = selectedLibro
+                print("Libro recuperado \(selectedLibro.titulo)")
+            }
+        } else if segue.identifier == "AgregarLibro" {
+            print("Agregando un nuevo libro")
+        }
     }
-    */
     
     @IBAction func unwindToLibrosList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? BuscarLibroViewController, libroNuevo = sourceViewController.libroNuevo {
