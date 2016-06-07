@@ -40,6 +40,7 @@ class BuscarLibroViewController: UIViewController {
     
     @IBAction func cancel(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
+        print("Cancelado: no se agregó un nuevo libro")
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -50,6 +51,7 @@ class BuscarLibroViewController: UIViewController {
             
             // Guardar los valores en libroNuevo para pasar vía segue
             libroNuevo = Libro(i: isbn, t: titulo, a: autores)
+            print("Libro nuevo agregado")
         }
     }
     
@@ -76,7 +78,7 @@ class BuscarLibroViewController: UIViewController {
             textoAutores.text = dico4["name"] as! NSString as String
             
         }
-        catch _ {
+        catch {
         }
     }
 
@@ -91,8 +93,6 @@ class BuscarLibroViewController: UIViewController {
         if let titulo = textoTitulo.text, autores = textoAutores.text, isbn = textoISBN.text {
             libroNuevo = Libro(i: isbn, t: titulo, a: autores)
         }
-        
-        // Duda: ¿debo retornar la variable Libro, o basta con almacenar datos?
-    }    
+    }
 
 }

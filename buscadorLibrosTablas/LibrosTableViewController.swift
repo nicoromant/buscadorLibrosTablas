@@ -7,26 +7,32 @@
 //
 
 import UIKit
+import CoreData
 
 class LibrosTableViewController: UITableViewController {
     
     // MARK: Properties
     var libros = [Libro]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Helper method para cargar datos en la tabla
         func loadSampleLibros() {
-            let libro1 = Libro(i: "ISBN1", t: "El Padrino", a: "M. Puzzo")
-            let libro2 = Libro(i: "ISBN2", t: "El Hobbit", a: "J. Tolkien")
-            let libro3 = Libro(i: "ISBN3", t: "Resource Revolution", a: "R. Heck")
+            let libro1 = Libro(i: "978-84-080-5304-0", t: "Cosmos", a: "Carl Sagan")
+            let libro2 = Libro(i: "978-05-821-8655-2", t: "The Hobbit", a: "J. R. R. Tolkien")
+            let libro3 = Libro(i: "978-04-511-6771-2", t: "The Godfather", a: "Mario Puzzo")
             
             libros += [libro1, libro2, libro3]
         }
-        
-        // Load the sample data
-        loadSampleLibros()
+
+        // Load any sample libros, otherwise load sample data.
+        if let savedLibros = loadLibros() {
+            libros += savedLibros
+        } else {
+            // Load the sample data
+            loadSampleLibros()
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -110,7 +116,7 @@ class LibrosTableViewController: UITableViewController {
                 let indexPath = tableView.indexPathForCell(selectedLibro)
                 let selectedLibro = libros[(indexPath?.row)!]
                 libroDetailViewController.libroDetalle = selectedLibro
-                print("Libro recuperado \(selectedLibro.titulo)")
+                print("Título libro almacenado: \(selectedLibro.titulo!)")
             }
         } else if segue.identifier == "AgregarLibro" {
             print("Agregando un nuevo libro")
@@ -123,8 +129,31 @@ class LibrosTableViewController: UITableViewController {
             let newIndexPath = NSIndexPath(forRow: libros.count, inSection: 0)
             libros.append(libroNuevo)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+            
+            // Save the libros.
+            saveLibros()
         }
     }
+    
+    // MARK: NSCoding
+    
+    func saveLibros() {
+        // The following method attempts to archive the libros array to a specific location, and returns true if it’s successful
+        let isSuccesfulSave = NSKeyedArchiver.archiveRootObject(libros, toFile: Libro.ArchiveURL.path!)
 
-
+        // Quickly test if Save was succesful
+        if !isSuccesfulSave {
+            print("Failed to save libros...")
+        }
+    }
+    
+    func loadLibros() -> [Libro]?{
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(Libro.ArchiveURL.path!) as? [Libro]
+        
+        /* This method attempts to unarchive the object stored at the path Libro.ArchiveURL.path! and downcast that object to an array of Libro objects.
+         This code uses the as? operator so that it can return nil when appropriate.
+         Because the array may or may not have been stored, it’s possible that the downcast will fail, in which case the method should return nil.
+        */
+    }
+    
 }
