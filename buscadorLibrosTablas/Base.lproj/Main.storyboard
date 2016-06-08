@@ -253,7 +253,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="978-84-376-0494-7" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="toZ-Qv-5yk">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ingresa ISBN" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="toZ-Qv-5yk">
                                 <rect key="frame" x="20" y="101" width="560" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="PtT-9g-Nnc"/>
@@ -264,7 +264,7 @@
                                     <action selector="buscaISBN:" destination="01K-Gt-0r3" eventType="editingDidEndOnExit" id="bnC-dZ-7Ko"/>
                                 </connections>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Portada" translatesAutoresizingMaskIntoConstraints="NO" id="XB6-c4-yzn">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XB6-c4-yzn">
                                 <rect key="frame" x="250" y="418" width="100" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="HOG-nD-e2Y"/>

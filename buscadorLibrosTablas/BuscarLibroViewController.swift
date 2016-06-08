@@ -68,15 +68,23 @@ class BuscarLibroViewController: UIViewController {
             let json = try NSJSONSerialization.JSONObjectWithData(datos!, options: NSJSONReadingOptions.MutableLeaves)
 
             let dico1 = json as! NSDictionary
-            let dico2 = dico1["ISBN:"+textoISBN.text!] as! NSDictionary
+            if let dico2 = dico1["ISBN:"+textoISBN.text!] as! NSDictionary? {
+                textoTitulo.text = dico2["title"] as! NSString as String
+                if let dico3 = dico2["authors"] as! NSArray as Array? {
+                    let dico4 = dico3[0] as! NSDictionary
+                    textoAutores.text = dico4["name"] as! NSString as String
+                }
+            } else {
+                print("Error: ISBN no encontrado, ingresalo nuevamente")
+            }
             
-            textoTitulo.text = dico2["title"] as! NSString as String
+            /*
+            let dico5 = dico2["cover"] as! NSDictionary
+            let urlImagenString = dico5["large"] as! NSString as String
+            let imagenContenidaEnURL = UIImage(contentsOfFile: urlImagenString)
             
-            let dico3 = dico2["authors"] as! NSArray as Array
-            let dico4 = dico3[0] as! NSDictionary
-            
-            textoAutores.text = dico4["name"] as! NSString as String
-            
+            portada.image = imagenContenidaEnURL
+            */
         }
         catch {
         }

@@ -17,6 +17,9 @@ class LibrosTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Use the edit button provided by the table view controller.
+        navigationItem.leftBarButtonItem = editButtonItem()
+        
         // Helper method para cargar datos en la tabla
         func loadSampleLibros() {
             let libro1 = Libro(i: "978-84-080-5304-0", t: "Cosmos", a: "Carl Sagan")
@@ -70,25 +73,22 @@ class LibrosTableViewController: UITableViewController {
         return cell
     }
 
-    /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            libros.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -116,7 +116,7 @@ class LibrosTableViewController: UITableViewController {
                 let indexPath = tableView.indexPathForCell(selectedLibro)
                 let selectedLibro = libros[(indexPath?.row)!]
                 libroDetailViewController.libroDetalle = selectedLibro
-                print("Título libro almacenado: \(selectedLibro.titulo!)")
+                print("Mostrando libro almacenado: \(selectedLibro.titulo!)")
             }
         } else if segue.identifier == "AgregarLibro" {
             print("Agregando un nuevo libro")
